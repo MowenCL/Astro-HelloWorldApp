@@ -1,11 +1,4 @@
 ---
-import { version as astroVersion } from 'astro/package.json';
-const mode = import.meta.env.MODE;
-const nodeVersion = typeof process !== 'undefined' ? process.version : 'desconocido';
-const buildDate = new Date().toLocaleString('es-ES', {
-  dateStyle: 'medium',
-  timeStyle: 'short',
-});
 ---
 
 <html lang="es">
@@ -15,40 +8,25 @@ const buildDate = new Date().toLocaleString('es-ES', {
     <title>Hola Mundo · Astro</title>
   </head>
   <body style="margin:0; min-height:100vh; display:grid; place-items:center; background:#f8fafc; font-family:Inter, system-ui, sans-serif;">
-    <main style="max-width:860px; width:100%; text-align:left; padding:2.5rem; border-radius:1.25rem; background:#ffffff; box-shadow:0 30px 80px rgba(15, 23, 42, 0.08);">
-      <section style="margin-bottom:2rem;">
-        <h1 style="font-size:clamp(2.25rem, 4vw, 4rem); margin:0 0 1rem; color:#0f172a;">¡Hola Mundo!</h1>
-        <p style="font-size:1.1rem; color:#475569; margin:0;">Este sitio se creó con Astro y muestra información de la versión y el entorno.</p>
-      </section>
-
-      <section style="display:grid; gap:1rem; margin-bottom:2rem;">
-        <div style="padding:1.25rem; border-radius:1rem; background:#f8fafc;">
-          <h2 style="margin:0 0 0.75rem; color:#0f172a; font-size:1.25rem;">Información de Astro</h2>
-          <p style="margin:0.25rem 0;"><strong>Versión Astro:</strong> {astroVersion}</p>
-          <p style="margin:0.25rem 0;"><strong>Modo:</strong> {mode}</p>
-          <p style="margin:0.25rem 0;"><strong>Node:</strong> {nodeVersion}</p>
-          <p style="margin:0.25rem 0;"><strong>Build:</strong> {buildDate}</p>
-        </div>
-
-        <div style="padding:1.25rem; border-radius:1rem; background:#f8fafc;">
-          <h2 style="margin:0 0 0.75rem; color:#0f172a; font-size:1.25rem;">Información del entorno</h2>
-          <p style="margin:0.25rem 0;"><strong>Host:</strong> <span id="client-host">Cargando...</span></p>
-          <p style="margin:0.25rem 0;"><strong>Protocolo:</strong> <span id="client-protocol">Cargando...</span></p>
-          <p style="margin:0.25rem 0;"><strong>URL:</strong> <span id="client-url">Cargando...</span></p>
-          <p style="margin:0.25rem 0;"><strong>User-Agent:</strong> <span id="client-ua">Cargando...</span></p>
-          <p style="margin:0.25rem 0;"><strong>Servidor web:</strong> <span id="client-server">Información del navegador</span></p>
-        </div>
-      </section>
+    <main style="text-align:center; padding:2rem 3rem; border-radius:1.25rem; background:#ffffff; box-shadow:0 30px 80px rgba(15, 23, 42, 0.08);">
+      <h1 style="font-size:clamp(2.25rem, 4vw, 4rem); margin:0 0 1rem; color:#0f172a;">¡Hola Mundo!</h1>
+      <p style="font-size:1.1rem; color:#475569; margin:0 0 1.5rem;">Bienvenido a tu sitio Astro simple.</p>
+      <p style="font-size:1rem; color:#334155; margin:0;"><strong>Remote Address:</strong> <span id="remote-address">Cargando...</span></p>
+      <p style="font-size:1rem; color:#334155; margin:0;"><strong>Screen Size:</strong> <span id="screen-size">Cargando...</span></p>
+      <p style="font-size:1rem; color:#334155; margin:0 0 1.5rem;"><strong>User-Agent:</strong> <span id="user-agent">Cargando...</span></p>
     </main>
 
     <script>
-      window.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('client-host').textContent = window.location.host;
-        document.getElementById('client-protocol').textContent = window.location.protocol.replace(':', '');
-        document.getElementById('client-url').textContent = window.location.href;
-        document.getElementById('client-ua').textContent = navigator.userAgent;
-        document.getElementById('client-server').textContent = 'Servidor web no disponible en build estático';
-      });
+      function loadRemoteAddress() {
+        const host = window.location.host || 'No disponible';
+        const protocol = window.location.protocol.replace(':', '') || 'No disponible';
+        const path = window.location.pathname || '';
+        document.getElementById('remote-address').textContent = `${host}${path}`;
+        document.getElementById('remote-address').title = `Protocolo: ${protocol}`;
+        document.getElementById('user-agent').textContent = navigator.userAgent || 'No disponible';
+        document.getElementById('screen-size').textContent = `${window.screen.width}x${window.screen.height}`;
+      }
+      loadRemoteAddress();
     </script>
   </body>
 </html>
